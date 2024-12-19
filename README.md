@@ -1,75 +1,77 @@
 # **Gitanalyzer**
 
-Gitanalyzer — это консольная утилита для подсчёта статистики авторов в Git-репозитории. С её помощью вы можете анализировать, кто внёс наибольший вклад в проект, основываясь на строках кода, коммитах и файлах.
+gitanalyzer is a console utility for counting author statistics in a Git repository. You can use it to analyze who has contributed the most to a project based on lines of code, commits, and files.
 
-## **Пример использования**
+## **Example of use**
 
-`./gitanalyzer --repository=git@github.com:DmitryVasilkovW/Git-repository-analyzer.git --revision=HEAD --order-by=commits --show-languages=true`
+````bash
+./gitanalyzer --repository=git@github.com:DmitryVasilkovW/Git-repository-analyzer.git --revision=HEAD --order-by=commits --show-languages=true
+````
 
-**Результат:**
+**Result:**
 
 ````  
 User                 Files      Lines      Commits    Languages
 Dmitry Vasilkov      88         7335       2          JSON (3377), Go Module (5), Go Checksums (2), YAML (150), Ignore List (117), Makefile (2), Markdown (252), Go (1183)
 ````
 
-## **Возможности**
+## **Capabilities**
 
-gitanalyzer предоставляет следующие метрики для каждого автора:
+gitanalyzer provides the following metrics for each author:
 
-* **Количество строк** кода
-* **Количество уникальных коммитов**
-* **Количество файлов**, затронутых коммитами автора
+* **Number of lines** of code
+* **Number of unique commits**
+* **Number of files** affected by author commits
 
-Все статистики рассчитываются на основе последнего состояния репозитория.
+All statistics are calculated based on the last state of the repository.
 
 
 
-## **Флаги**
+## **Flags**
 
-gitanalyzer поддерживает следующие флаги:
+gitanalyzer supports the following flags:
 
 * **`--repository`**  
-  Путь до репозитория (по умолчанию текущая директория).
-* **`--revision`**  
-  Указатель на коммит (по умолчанию `HEAD`).
+  Path to the repository (both local and remote, current directory by default).
+* **`-revision`**  
+  Pointer to commit (default is `HEAD`).
 * **`--order-by`**  
-  Ключ сортировки результатов: `lines` (по умолчанию), `commits`, `files`.
+  Results sorting key: `lines` (default), `commits`, `files`.
 * **`--use-committer`**  
-  Заменяет автора на коммиттера.
+  Replaces author with committer.
 * **`--format`**  
-  Формат вывода:
-    * `tabular` (по умолчанию)
-    * `csv`
-    * `json`
-    * `json-lines`
+  Output format:
+  * `tabular` (default).
+  * `csv`
+  * `json`
+  * `json-lines`
 * **`--extensions`**  
-  Список расширений файлов для анализа, например, `'.go,.md'`.
-* **`--languages`**  
-  Список языков для анализа, например, `'go,markdown'`.
+  List of file extensions to analyze, e.g. ``.go,.md'``.
+* **`-languages`**  
+  List of languages to analyze, e.g., .go,markdown`.
 * **`--exclude`**  
-  Glob-паттерны для исключения файлов, например, `'foo/*,bar/*'`.
+  Glob-patterns to exclude files, e.g., ``foo/*,bar/*'``.
 * **`--restrict-to`**  
-  Glob-паттерны для фильтрации только нужных файлов.
-* **`--show-languages`**  
-  при значении true утилита выведет все использованные языки для каждого пользователя и количество строк для каждого языка 
+  Glob-patterns to filter only the files you want.
+* **`-show-languages`**  
+  if true, the utility will display all used languages for each user and the number of lines for each language
 
-## **Тестирование**
+## **Testing**
 
-Для запуска тестов используйте команду:
+To run tests, use the command:
 
-bash  
-Копировать код  
-`go test -v ./gitanalyzer/test/integration/...`
+````bash
+go test -v test/integration/gitanalyzer_test.go
+````
 
-Интеграционные тесты используют заранее подготовленные Git-бандлы, хранящиеся в `/tests/integration/testdata/bundles`. Чтобы создать собственный бандл, выполните:
+Integration tests use pre-built Git bundles stored in `/tests/integration/testdata/bundles`. To create your own bundle, run:
 
-bash  
-Копировать код  
-`git bundle create my.bundle --all`
+````bash
+git bundle create my.bundle --all
+````
 
-Распакуйте бандл:
+Unzip the bundle:
 
-bash  
-Копировать код  
+````bash
 `git clone /path/to/my.bundle .`
+````
