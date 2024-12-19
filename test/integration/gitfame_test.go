@@ -14,7 +14,7 @@
 //	"gopkg.in/yaml.v2"
 //)
 //
-//const importPath = "gitlab.com/slon/shad-go/gitfame/cmd/gitfame"
+//const importPath = "gitlab.com/slon/shad-go/analyzer/cmd/analyzer"
 //
 //var binCache testtool.BinCache
 //
@@ -40,7 +40,7 @@
 //		tc := ReadTestCase(t, filepath.Join(testsDir, dir))
 //
 //		t.Run(dir+"/"+tc.Name, func(t *testing.T) {
-//			dir, err := os.MkdirTemp("", "gitfame-")
+//			dir, err := os.MkdirTemp("", "analyzer-")
 //			require.NoError(t, err)
 //			defer func() { _ = os.RemoveAll(dir) }()
 //

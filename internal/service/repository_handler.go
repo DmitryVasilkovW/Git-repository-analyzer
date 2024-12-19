@@ -48,7 +48,7 @@ func removeDirectory(path string) {
 }
 
 func cloneRepository(url string) (string, error) {
-	tempDir, err := os.MkdirTemp("", "gitfame-*")
+	tempDir, err := os.MkdirTemp("", "analyzer-*")
 	if err != nil {
 		return "", fmt.Errorf("failed to create temporary directory: %w", err)
 	}
