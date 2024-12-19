@@ -22,11 +22,8 @@ func GetExts(lang string) []string {
 		content, _ := os.ReadFile("../../configs/language_extensions.json")
 		_ = json.Unmarshal(content, &languages)
 
-		// fmt.Fprintln(os.Stderr, content)
-
 		for _, lang := range languages {
 			mapOfLanguages[strings.ToLower(lang.Name)] = lang.Extensions
-			//fmt.Fprintln(os.Stderr, lang.name)
 		}
 	}
 	return mapOfLanguages[strings.ToLower(lang)]

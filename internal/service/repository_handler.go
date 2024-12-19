@@ -5,7 +5,7 @@ import (
 	"github.com/DmitryVasilkovW/Git-repository-analyzer.git/internal/model"
 	"github.com/DmitryVasilkovW/Git-repository-analyzer.git/internal/service/utils"
 
-	//"github.com/go-enry/go-enry/v2"
+	"github.com/go-enry/go-enry/v2"
 	"os"
 	"os/exec"
 	"strconv"
@@ -170,9 +170,7 @@ func getInfoAboutFile(info model.RepoFlags, fileName, blame string) model.UserDa
 		stat.Commits[commitHash] = 1
 		stat.Lines += commitAmount[commitHash]
 
-		// не удается подключить "github.com/go-enry/go-enry/v2" во время сборки в гитлабе
-		//language := enry.GetLanguage(fileName, nil)
-		language := ""
+		language := enry.GetLanguage(fileName, nil)
 
 		if language != "" {
 			stat.Languages[language] += commitAmount[commitHash]

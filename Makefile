@@ -1,2 +1,2 @@
 build:
-	go build -o gitfame ./cmd/gitfame
+	go build -o gitanalyzer ./cmd/analyzer
