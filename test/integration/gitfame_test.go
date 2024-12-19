@@ -2,6 +2,7 @@ package integration
 
 import (
 	"bytes"
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
@@ -14,11 +15,16 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const importPath = "gitlab.com/slon/shad-go/analyzer/cmd/analyzer"
+func TestAnalyzer(t *testing.T) {
+	cmd := exec.Command("go", "build", "-o", "analyzer", "../../cmd/analyzer")
+	err := cmd.Run()
+	require.NoError(t, err)
 
-func TestGitFame(t *testing.T) {
-	// Путь к бинарнику, компилируем его непосредственно в тесте
-	binaryPath := filepath.Join(".", "../../analyzer") // Предположим, что бинарник собран в корне проекта
+	binaryPath, err := filepath.Abs("./analyzer")
+	require.NoError(t, err)
+
+	fmt.Println(binaryPath)
+	fmt.Println(os.Getwd())
 
 	bundlesDir := path.Join("./testdata", "bundles")
 	testsDir := path.Join("./testdata", "tests")
@@ -35,11 +41,9 @@ func TestGitFame(t *testing.T) {
 			args := []string{"--repository", dir}
 			args = append(args, tc.Args...)
 
-			// Распаковываем bundle
 			Unbundle(t, filepath.Join(bundlesDir, tc.Bundle), dir)
 			headRef := GetHEADRef(t, dir)
 
-			// Компиляция и запуск бинарника
 			cmd := exec.Command(binaryPath, args...)
 			cmd.Stderr = os.Stderr
 
